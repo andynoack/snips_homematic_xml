@@ -4,8 +4,9 @@
 from hermes_python.hermes import Hermes
 from hermes_python.ontology import *
 from lxml import etree
-from six import urllib, configparser
+from six.moves import urllib, configparser
 import io
+import six
 
 if six.PY2:
     ConfigParser = configparser.SafeConfigParser
