@@ -32,7 +32,6 @@ class SnipsConfigParser(ConfigParser.SafeConfigParser):
     def getXML(url):
         ret = urllib.request.urlopen(url).read()
         return etree.fromstring(ret)
-        #return simplexml.loads(ret)
 
     def writecache(devicelist, programlist):
         file = open(CACHE, "w")

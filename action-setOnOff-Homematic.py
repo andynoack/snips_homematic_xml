@@ -32,7 +32,6 @@ class SnipsConfigParser(ConfigParser.SafeConfigParser):
     def getXML(url):
         ret = urllib.request.urlopen(url).read()
         return etree.fromstring(ret)
-        #return simplexml.loads(ret)
 
     def writecache(devicelist, programlist):
         file = open(CACHE, "w")
@@ -135,9 +134,9 @@ class SnipsConfigParser(ConfigParser.SafeConfigParser):
 
         number = -1
         if spoken_word in ['hoch', 'auf', 'an', 'herauf', 'rauf', 'up', '1', 'eins', '100%', 'angeschaltet', 'öffne', 'öffnen']:
-        number = 1
+            number = 1
         if spoken_word in ['runter', 'zu', 'aus', 'herunter', 'runter', 'down', '0', 'null', '0%', 'ausgeschaltet', 'schließe', 'schließen']:
-        number = 0
+            number = 0
 
         if number > -1:
             changeDeviceState(url, getID(dl, spoken_name), number)
