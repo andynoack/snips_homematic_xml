@@ -4,6 +4,8 @@
 import ConfigParser
 from hermes_python.hermes import Hermes
 from hermes_python.ontology import *
+from lxml import etree
+from six.moves import urllib
 import io
 import common
 

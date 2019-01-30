@@ -1,9 +1,5 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
-
-from lxml import etree
-from six.moves import urllib
-
 cache = "cache.txt"
 url = conf['global']['url']
 
@@ -15,9 +11,9 @@ def getXML(url):
 def writecache(devicelist, programlist):
     file = open(cache, "w")
     for i in devicelist:
-        file.write("Device," + i[1] + "," + i[0].encode('utf-8') + "\n")    
+        file.write("Device," + str(i[1]) + "," + str(i[0].encode('utf-8')) + "\n")    
     for i in programlist:
-        file.write("Program," + i[1] + "," + i[0].encode('utf-8') + "\n")
+        file.write("Program," + str(i[1]) + "," + str(i[0].encode('utf-8')) + "\n")
     file.close()
 
 def readcache():
