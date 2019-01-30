@@ -38,9 +38,9 @@ def getXML(url):
 def writecache(devicelist, programlist):
     file = open(CACHE, "w")
     for i in devicelist:
-        file.write("Device," + str(i[1]) + "," + str(i[0].encode('utf-8')) + "\n")    
+        file.write("Device," + str(i[1]) + "," + str(i[0]) + "\n")    
     for i in programlist:
-        file.write("Program," + str(i[1]) + "," + str(i[0].encode('utf-8')) + "\n")
+        file.write("Program," + str(i[1]) + "," + str(i[0]) + "\n")
     file.close()
 
 def readcache():
