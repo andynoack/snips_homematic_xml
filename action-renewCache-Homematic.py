@@ -47,8 +47,7 @@ def readcache():
     
     try:
         file = open(CACHE, "r")
-        for line in file:
-            print(line)
+        for line in file:            
             type, id, name = line.split(",", 2)
             if type == "Device":
                 devicelist.append([name.strip("\n"), int(id)])

@@ -47,8 +47,7 @@ def readcache():
     
     try:
         file = open(CACHE, "r")
-        for line in file:
-            print(line)
+        for line in file:            
             type, id, name = line.split(",", 2)
             if type == "Device":
                 devicelist.append([name.strip("\n"), int(id)])
@@ -121,11 +120,7 @@ def action_wrapper(hermes, intentMessage, conf):
     - conf : a dictionary that holds the skills parameters you defined 
     Refer to the documentation for further details. 
     """     
-    if conf == {}:
-        url = "http://192.168.12.2/addons/xmlapi/"
-    else:
-        url = conf['global']['url']
-        
+    url = conf['global']['url']        
     dl, pl = readcache()
     if dl == [] or pl == []:
         dl = retrieveDeviceList(url)
