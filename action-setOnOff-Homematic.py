@@ -147,7 +147,6 @@ class SnipsConfigParser(ConfigParser.SafeConfigParser):
 
 if __name__ == "__main__":
     with Hermes("localhost:1883") as h:
-        h.subscribe_intent("ndy1982:setOnOff", subscribe_intent_callback) \
-.start()
+        h.subscribe_intent("ndy1982:setOnOff", subscribe_intent_callback) .start()
 
 

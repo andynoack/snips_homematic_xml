@@ -136,9 +136,7 @@ class SnipsConfigParser(ConfigParser.SafeConfigParser):
         current_session_id = intentMessage.session_id
         hermes.publish_end_session(current_session_id, result_sentence)
 
-
 if __name__ == "__main__":
     with Hermes("localhost:1883") as h:
-        h.subscribe_intent("ndy1982:executeProgram", subscribe_intent_callback) \
-.start()
+        h.subscribe_intent("ndy1982:executeProgram", subscribe_intent_callback) .start()
 
