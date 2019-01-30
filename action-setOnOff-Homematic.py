@@ -105,9 +105,9 @@ def runProgram(url, program_id):
 def getID(li, name):
     for i in li:
         current = i[0].lower()
-        current = current.replace('ae', 'ä')
-        current = current.replace('oe', 'ö')
-        current = current.replace('ue', 'ü')        
+        current = current.replace('ae', u'ä')
+        current = current.replace('oe', u'ö')
+        current = current.replace('ue', u'ü')        
         if current in name.lower():
             return i[1]
     return None
@@ -131,9 +131,9 @@ def action_wrapper(hermes, intentMessage, conf):
     spoken_word = str(intentMessage.slots.Wert.first().value).lower()
 
     number = -1
-    if spoken_word in ['hoch', 'auf', 'an', 'herauf', 'rauf', 'up', '1', 'eins', '100%', 'angeschaltet', 'öffne', 'öffnen']:
+    if spoken_word in ['hoch', 'auf', 'an', 'herauf', 'rauf', 'up', '1', 'eins', '100%', 'angeschaltet', u'öffne', u'öffnen']:
         number = 1
-    if spoken_word in ['runter', 'zu', 'aus', 'herunter', 'runter', 'down', '0', 'null', '0%', 'ausgeschaltet', 'schließe', 'schließen']:
+    if spoken_word in ['runter', 'zu', 'aus', 'herunter', 'runter', 'down', '0', 'null', '0%', 'ausgeschaltet', u'schließe', u'schließen']:
         number = 0
 
     if number > -1:
