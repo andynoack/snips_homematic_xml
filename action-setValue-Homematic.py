@@ -128,7 +128,7 @@ def action_wrapper(hermes, intentMessage, conf):
         writecache(dl, pl)
     
     spoken_name = str(intentMessage.slots.Device.first().value).lower()
-    spoken_percent = int(intentMessage.slots.Prozentwert.first().value)/100
+    spoken_percent = intentMessage.slots.Prozentwert.first().value/100
     changeDeviceState(url, getID(dl, spoken_name), spoken_percent)
     
     result_sentence = "OK"
