@@ -6,6 +6,7 @@ from hermes_python.ontology import *
 from lxml import etree
 from six.moves import urllib, configparser
 import io
+import unidecode
 
 ConfigParser = configparser.ConfigParser
 
@@ -105,11 +106,11 @@ def runProgram(url, program_id):
 
 def getID(li, name):
     for i in li:
-        current = i[0].lower()
-        current = current.replace('ae', 'ä')
-        current = current.replace('oe', 'ö')
-        current = current.replace('ue', 'ü')        
-        if current in name.lower():
+        current = unidecode.unidecode(i[0].lower())
+        current = current.replace('ae', 'a')
+        current = current.replace('oe', 'o')
+        current = current.replace('ue', 'u')        
+        if current in unidecode.unidecode(name.lower()):
             return i[1]
     return None
 
