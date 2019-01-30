@@ -6,12 +6,8 @@ from hermes_python.ontology import *
 from lxml import etree
 from six.moves import urllib, configparser
 import io
-import six
 
-if six.PY2:
-    ConfigParser = configparser.SafeConfigParser
-else:
-    ConfigParser = configparser.ConfigParser
+ConfigParser = configparser.ConfigParser
 
 CONFIGURATION_ENCODING_FORMAT = "utf-8"
 CONFIG_INI = "config.ini"
