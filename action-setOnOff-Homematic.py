@@ -31,6 +31,13 @@ def subscribe_intent_callback(hermes, intentMessage):
     conf = read_configuration_file(CONFIG_INI)
     action_wrapper(hermes, intentMessage, conf)
 
+def simplify(text):
+    ret = unidecode.unidecode(text.lower())
+    ret = ret.replace('ae', 'a')
+    ret = ret.replace('oe', 'o')
+    ret = ret.replace('ue', 'u')
+    return ret
+
 def getXML(url):
     ret = urllib.request.urlopen(url).read()
     return etree.fromstring(ret)
@@ -69,12 +76,12 @@ def retrieveDeviceList(url):
         # Info in parent
         for pair in device.items():
             if pair[0] == 'name' and not pair[1].startswith('HM-'):
-                save_name = pair[1]
+                save_name = simplify(pair[1])
         # Parse channels
         for channel in device:
             for pair in channel.items():
                 if pair[0] == 'name' and not pair[1].startswith('HM-'):
-                    save_name = pair[1]
+                    save_name = simplify(pair[1])
                 if pair[0] == 'ise_id':
                     save_ise_id = pair[1]
         if save_name != "":
@@ -89,10 +96,7 @@ def retrieveProgramList(url):
         save_id = 0
         for pair in program.items():
             if pair[0] == 'name':
-                save_name = unidecode.unidecode(pair[1].lower())
-                save_name = save_name.replace('ae', 'a')
-                save_name = save_name.replace('oe', 'o')
-                save_name = save_name.replace('ue', 'u')
+                save_name = simplify(pair[1])                
             if pair[0] == 'id':
                 save_id = pair[1]
         if save_name != "":
@@ -101,7 +105,6 @@ def retrieveProgramList(url):
 
 def changeDeviceState(url, ise_id, new_value):
     action_url = url + "statechange.cgi?ise_id=" + str(ise_id) + "&new_value=" + str(new_value)
-    print(action_url)
     urllib.request.urlopen(action_url)
 
 def runProgram(url, program_id):
@@ -109,13 +112,8 @@ def runProgram(url, program_id):
     urllib.request.urlopen(action_url)
 
 def getID(li, name):
-    for i in li:        
-        current = unidecode.unidecode(i[0].lower())
-        current = current.replace('ae', 'a')
-        current = current.replace('oe', 'o')
-        current = current.replace('ue', 'u')
-        print(current, "=", unidecode.unidecode(name.lower()))
-        if current in unidecode.unidecode(name.lower()):
+    for i in li:                        
+        if simplify(i[0]) in simplify(name):
             return i[1]
     return None
 
@@ -134,7 +132,7 @@ def action_wrapper(hermes, intentMessage, conf):
         pl = retrieveProgramList(url)
         writecache(dl, pl)
     
-    spoken_name = str(intentMessage.slots.Device.first().value).lower()
+    spoken_name = simplify(str(intentMessage.slots.Device.first().value))
     spoken_word = str(intentMessage.slots.Wert.first().value).lower()
 
     number = -1
