@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import ConfigParser
@@ -131,9 +131,9 @@ def action_wrapper(hermes, intentMessage, conf):
     spoken_word = str(intentMessage.slots.Wert.first().value).lower()
 
     number = -1
-    if spoken_word in ['hoch', 'auf', 'an', 'herauf', 'rauf', 'up', '1', 'eins', '100%', 'angeschaltet', u'öffne', u'öffnen']:
+    if spoken_word.encode('utf-8') in ['hoch', 'auf', 'an', 'herauf', 'rauf', 'up', '1', 'eins', '100%', 'angeschaltet', 'öffne', 'öffnen']:
         number = 1
-    if spoken_word in ['runter', 'zu', 'aus', 'herunter', 'runter', 'down', '0', 'null', '0%', 'ausgeschaltet', u'schließe', u'schließen']:
+    if spoken_word.encode('utf-8') in ['runter', 'zu', 'aus', 'herunter', 'runter', 'down', '0', 'null', '0%', 'ausgeschaltet', 'schließe', 'schließen']:
         number = 0
 
     if number > -1:
