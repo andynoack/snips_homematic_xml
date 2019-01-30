@@ -120,8 +120,8 @@ def action_wrapper(hermes, intentMessage, conf):
     - hermes : an object with methods to communicate with the MQTT bus following the hermes protocol. 
     - conf : a dictionary that holds the skills parameters you defined 
     Refer to the documentation for further details. 
-    """ 
-    
+    """     
+    print(conf)
     url = conf['global']['url']
     dl, pl = readcache()
     if dl == [] or pl == []:
@@ -147,6 +147,7 @@ def action_wrapper(hermes, intentMessage, conf):
 
 if __name__ == "__main__":
     with Hermes("localhost:1883") as h:
-        h.subscribe_intent("ndy1982:setOnOff", subscribe_intent_callback) .start()
+        h.subscribe_intent("ndy1982:setOnOff", subscribe_intent_callback) \
+         .start()
 
 

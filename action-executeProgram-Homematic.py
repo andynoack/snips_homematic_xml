@@ -138,5 +138,6 @@ def action_wrapper(hermes, intentMessage, conf):
 
 if __name__ == "__main__":
     with Hermes("localhost:1883") as h:
-        h.subscribe_intent("ndy1982:executeProgram", subscribe_intent_callback) .start()
+        h.subscribe_intent("ndy1982:executeProgram", subscribe_intent_callback) \
+         .start()
 
