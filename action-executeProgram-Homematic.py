@@ -105,9 +105,9 @@ def runProgram(url, program_id):
 def getID(li, name):
     for i in li:
         current = i[0].lower()
-        current = current.replace('ae', u'ä')
-        current = current.replace('oe', u'ö')
-        current = current.replace('ue', u'ü')        
+        current = current.replace('ae', 'ä')
+        current = current.replace('oe', 'ö')
+        current = current.replace('ue', 'ü')        
         if current in name.lower():
             return i[1]
     return None
