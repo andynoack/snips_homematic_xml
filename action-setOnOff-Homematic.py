@@ -89,7 +89,10 @@ def retrieveProgramList(url):
         save_id = 0
         for pair in program.items():
             if pair[0] == 'name':
-                save_name = pair[1]
+                save_name = unidecode.unidecode(pair[1].lower())
+                save_name = save_name.replace('ae', 'a')
+                save_name = save_name.replace('oe', 'o')
+                save_name = save_name.replace('ue', 'u')
             if pair[0] == 'id':
                 save_id = pair[1]
         if save_name != "":
