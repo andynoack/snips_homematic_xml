@@ -101,6 +101,7 @@ def retrieveProgramList(url):
 
 def changeDeviceState(url, ise_id, new_value):
     action_url = url + "statechange.cgi?ise_id=" + str(ise_id) + "&new_value=" + str(new_value)
+    print(action_url)
     urllib.request.urlopen(action_url)
 
 def runProgram(url, program_id):
@@ -108,11 +109,12 @@ def runProgram(url, program_id):
     urllib.request.urlopen(action_url)
 
 def getID(li, name):
-    for i in li:
+    for i in li:        
         current = unidecode.unidecode(i[0].lower())
         current = current.replace('ae', 'a')
         current = current.replace('oe', 'o')
-        current = current.replace('ue', 'u')        
+        current = current.replace('ue', 'u')
+        print(current, "=", unidecode.unidecode(name.lower()))
         if current in unidecode.unidecode(name.lower()):
             return i[1]
     return None
