@@ -121,8 +121,11 @@ def action_wrapper(hermes, intentMessage, conf):
     - conf : a dictionary that holds the skills parameters you defined 
     Refer to the documentation for further details. 
     """     
-    print(conf)
-    url = conf['global']['url']
+    if conf == {}:
+        url = "http://192.168.12.2/addons/xmlapi/"
+    else:
+        url = conf['global']['url']
+        
     dl, pl = readcache()
     if dl == [] or pl == []:
         dl = retrieveDeviceList(url)
