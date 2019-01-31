@@ -45,9 +45,8 @@ def action_wrapper(hermes, intentMessage, conf):
         common.writecache(dl, pl)
     
     spoken_name = str(intentMessage.slots.Device.first().value)
-    simplename = common.simplify(spoken_name)
     
-    value = common.getState(url, spoken_name):
+    value = common.getState(url, common.simplify(spoken_name)):
     if not value == False:
         result_sentence = spoken_name + "hat den Zustand" + value
     else
