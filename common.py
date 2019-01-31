@@ -4,6 +4,8 @@ from lxml import etree
 from six.moves import urllib
 import unidecode
 
+CACHE = "cache.txt"
+
 def simplify(text):
     ret = unidecode.unidecode(text.lower())
     ret = ret.replace('ae', 'a')
