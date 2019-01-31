@@ -51,9 +51,9 @@ def action_wrapper(hermes, intentMessage, conf):
     spoken_word = str(intentMessage.slots.Wert.first().value).lower()
 
     number = -1
-    if spoken_word in ['hoch', 'auf', 'an', 'herauf', 'rauf', 'up', '1', 'eins', '100%', 'angeschaltet', 'öffne', 'öffnen']:
+    if spoken_word in ['hoch', 'auf', 'an', 'herauf', 'rauf', 'up', '1', 'eins', '100%', 'angeschaltet', 'öffne', 'öffnen', 'hochfahren']:
         number = 1
-    if spoken_word in ['runter', 'zu', 'aus', 'herunter', 'runter', 'down', '0', 'null', '0%', 'ausgeschaltet', 'schließe', 'schließen']:
+    if spoken_word in ['runter', 'zu', 'aus', 'herunter', 'runter', 'down', '0', 'null', '0%', 'ausgeschaltet', 'schließe', 'schließen', 'runterfahren', 'herunterfahren']:
         number = 0
 
     if number > -1:
