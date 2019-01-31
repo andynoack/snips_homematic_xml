@@ -82,11 +82,15 @@ def changeDeviceState(url, ise_id, new_value):
     if not ise_id == None:
         action_url = url + "statechange.cgi?ise_id=" + str(ise_id) + "&new_value=" + str(new_value)
         urllib.request.urlopen(action_url)
+        return True
+    return False
 
 def runProgram(url, program_id):
     if not program_id == None:
         action_url = url + "runprogram.cgi?program_id=" + str(program_id)
         urllib.request.urlopen(action_url)
+        return True
+    return False
 
 def getID(li, name):
     for i in li:                        

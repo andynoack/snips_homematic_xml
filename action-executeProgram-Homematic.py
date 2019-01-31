@@ -44,9 +44,12 @@ def action_wrapper(hermes, intentMessage, conf):
         common.writecache(dl, pl)
     
     spoken_name = intentMessage.slots.Name.first().value
-    common.runProgram(url, common.getID(pl, spoken_name))
     
-    result_sentence = "OK"
+    if common.runProgram(url, common.getID(pl, spoken_name)):
+        result_sentence = "OK"
+    else:
+        result_sentence = "Ich konnte den Programmnamen nicht finden!"
+    
     current_session_id = intentMessage.session_id
     hermes.publish_end_session(current_session_id, result_sentence)
 

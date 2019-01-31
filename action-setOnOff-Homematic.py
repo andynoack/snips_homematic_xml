@@ -54,9 +54,11 @@ def action_wrapper(hermes, intentMessage, conf):
         number = 0
 
     if number > -1:
-        common.changeDeviceState(url, common.getID(dl, spoken_name), number)
-    
-    result_sentence = "OK"
+        if common.changeDeviceState(url, common.getID(dl, spoken_name), number):
+            result_sentence = "OK"
+        else:
+            result_sentence = "Ich konnte den Namen des Geräts nicht finden!"
+        
     current_session_id = intentMessage.session_id
     hermes.publish_end_session(current_session_id, result_sentence)
 
