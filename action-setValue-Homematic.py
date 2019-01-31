@@ -11,7 +11,6 @@ ConfigParser = configparser.ConfigParser
 
 CONFIGURATION_ENCODING_FORMAT = "utf-8"
 CONFIG_INI = "config.ini"
-CACHE = "cache.txt"
 
 class SnipsConfigParser(ConfigParser):
     def to_dict(self):
