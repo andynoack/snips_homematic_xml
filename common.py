@@ -78,6 +78,56 @@ def retrieveProgramList(url):
             programlist.append([save_name, save_id])
     return programlist
 
+def getState(url, name):    
+    programlist = []
+    action_url = url + "statelist.cgi?show_internal=0"
+    print(action_url)
+    xml_statelist = getXML(action_url)
+    simplename = simplify(name)
+    
+    found = 0
+    devicetype = False
+    value = None
+    
+    for device in xml_statelist:
+        for pair in device.items():
+            if pair[0] == 'name' and not pair[1].startswith('HM-'):
+                if simplify(pair[1]) == simplename:
+                    found = 1
+        for channel in device:
+            for pair in channel.items():
+                if pair[0] == 'name' and not pair[1].startswith('HM-'):
+                    if simplify(pair[1]) == simplename:
+                        found = 1
+                if found == 1:
+                    for datapoint in channel:
+                        if found == 1:
+                            for pair in datapoint.items():
+                                if pair[0] == 'name' and 'MOTION' in pair[1]:
+                                    devicetype = 'motion'
+                                if pair[0] == 'name' and 'LEVEL' in pair[1]:
+                                    devicetype = 'level'
+                                if pair[0] == 'name' and 'STATE' in pair[1]:
+                                    devicetype = 'state'
+                                if pair[0] == 'value' and devicetype:
+                                    value = pair[1]
+                                    found = 2
+                                    break
+    if found == 2:
+        if devicetype == 'motion':
+            if value == 'true':
+                return 'Bewegung erkannt!'
+            else:
+                return 'keine Bewegung erkannt.'                
+        if devicetype == 'state':
+            if value == 'true':
+                return 'an'
+            else:
+                return 'aus'
+        if devicetype == 'level':
+            return str(int(float(value)*100))+'%'
+    return False  
+
 def changeDeviceState(url, ise_id, new_value):
     if not ise_id == None:
         action_url = url + "statechange.cgi?ise_id=" + str(ise_id) + "&new_value=" + str(new_value)
