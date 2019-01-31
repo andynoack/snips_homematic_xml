@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from lxml import etree
 from six.moves import urllib
+import unidecode
 
 def simplify(text):
     ret = unidecode.unidecode(text.lower())
