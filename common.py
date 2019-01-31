@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+from lxml import etree
+from six.moves import urllib
 
 def simplify(text):
     ret = unidecode.unidecode(text.lower())
