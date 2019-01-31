@@ -48,7 +48,7 @@ def action_wrapper(hermes, intentMessage, conf):
     
     value = common.getState(url, common.simplify(spoken_name))
     if not value == False:
-        result_sentence = spoken_name + "hat den Zustand" + value
+        result_sentence = spoken_name + " hat den Zustand " + value
     else:
         result_sentence = "Ich konnte den Namen des Geräts nicht finden!"
 
