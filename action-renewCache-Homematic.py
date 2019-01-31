@@ -3,17 +3,14 @@
 
 from hermes_python.hermes import Hermes
 from hermes_python.ontology import *
-from lxml import etree
-from six.moves import urllib, configparser
+from six.moves import configparser
 import io
-import unidecode
 import common
 
 ConfigParser = configparser.ConfigParser
 
 CONFIGURATION_ENCODING_FORMAT = "utf-8"
 CONFIG_INI = "config.ini"
-CACHE = "cache.txt"
 
 class SnipsConfigParser(ConfigParser):
     def to_dict(self):

@@ -3,10 +3,8 @@
 
 from hermes_python.hermes import Hermes
 from hermes_python.ontology import *
-from lxml import etree
-from six.moves import urllib, configparser
+from six.moves import configparser
 import io
-import unidecode
 import common
 
 ConfigParser = configparser.ConfigParser
