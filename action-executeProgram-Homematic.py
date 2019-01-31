@@ -48,7 +48,7 @@ def action_wrapper(hermes, intentMessage, conf):
         common.writecache(dl, pl)
     
     spoken_name = intentMessage.slots.Name.first().value
-    common.runProgram(url, getID(pl, spoken_name))
+    common.runProgram(url, common.getID(pl, spoken_name))
     
     result_sentence = "OK"
     current_session_id = intentMessage.session_id

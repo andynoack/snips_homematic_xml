@@ -57,7 +57,7 @@ def action_wrapper(hermes, intentMessage, conf):
         number = 0
 
     if number > -1:
-        common.changeDeviceState(url, getID(dl, spoken_name), number)
+        common.changeDeviceState(url, common.getID(dl, spoken_name), number)
     
     result_sentence = "OK"
     current_session_id = intentMessage.session_id
