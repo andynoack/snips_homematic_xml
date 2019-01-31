@@ -41,15 +41,15 @@ def action_wrapper(hermes, intentMessage, conf):
     Refer to the documentation for further details. 
     """     
     url = conf['global']['url']
-    dl, pl = readcache()
+    dl, pl = common.readcache()
     if dl == [] or pl == []:
-        dl = retrieveDeviceList(url)
-        pl = retrieveProgramList(url)
-        writecache(dl, pl)
+        dl = common.retrieveDeviceList(url)
+        pl = common.retrieveProgramList(url)
+        common.writecache(dl, pl)
     
     spoken_name = str(intentMessage.slots.Device.first().value).lower()
     spoken_percent = intentMessage.slots.Prozentwert.first().value/100
-    changeDeviceState(url, getID(dl, spoken_name), spoken_percent)
+    common.changeDeviceState(url, getID(dl, spoken_name), spoken_percent)
     
     result_sentence = "OK"
     current_session_id = intentMessage.session_id

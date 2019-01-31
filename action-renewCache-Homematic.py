@@ -40,11 +40,10 @@ def action_wrapper(hermes, intentMessage, conf):
     - conf : a dictionary that holds the skills parameters you defined 
     Refer to the documentation for further details. 
     """ 
-    
-    url = conf['global']['url']
-    dl = retrieveDeviceList(url)
-    pl = retrieveProgramList(url)
-    writecache(dl, pl)
+
+    dl = common.retrieveDeviceList(url)
+    pl = common.retrieveProgramList(url)
+    common.writecache(dl, pl)
     
     result_sentence = "Die Geräte-Informationen wurden aktualisiert."
     current_session_id = intentMessage.session_id
