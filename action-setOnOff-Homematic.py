@@ -44,20 +44,23 @@ def action_wrapper(hermes, intentMessage, conf):
         pl = common.retrieveProgramList(url)
         common.writecache(dl, pl)
     
-    spoken_name = common.simplify(str(intentMessage.slots.Device.first().value))
-    spoken_word = str(intentMessage.slots.Wert.first().value).lower()
+    try:
+        spoken_name = common.simplify(str(intentMessage.slots.Device.first().value))
+        spoken_word = str(intentMessage.slots.Wert.first().value).lower()
 
-    number = -1
-    if spoken_word in ['hoch', 'auf', 'an', 'herauf', 'rauf', 'up', '1', 'eins', '100%', 'angeschaltet', 'öffne', 'öffnen', 'hochfahren']:
-        number = 1
-    if spoken_word in ['runter', 'zu', 'aus', 'herunter', 'runter', 'down', '0', 'null', '0%', 'ausgeschaltet', 'schließe', 'schließen', 'runterfahren', 'herunterfahren']:
-        number = 0
+        number = -1
+        if spoken_word in ['hoch', 'auf', 'an', 'herauf', 'rauf', 'up', '1', 'eins', '100%', 'angeschaltet', 'öffne', 'öffnen', 'hochfahren']:
+            number = 1
+        if spoken_word in ['runter', 'zu', 'aus', 'herunter', 'runter', 'down', '0', 'null', '0%', 'ausgeschaltet', 'schließe', 'schließen', 'runterfahren', 'herunterfahren']:
+            number = 0
 
-    if number > -1:
-        if common.changeDeviceState(url, common.getID(dl, spoken_name), number):
-            result_sentence = "OK"
-        else:
-            result_sentence = "Ich konnte den Namen des Geräts nicht finden!"
+        if number > -1:
+            if common.changeDeviceState(url, common.getID(dl, spoken_name), number):
+                result_sentence = "OK"
+            else:
+                result_sentence = "Ich konnte den Namen des Geräts nicht finden!"
+    except:
+        result_sentence = "Ich habe es nicht verstanden!"
         
     current_session_id = intentMessage.session_id
     hermes.publish_end_session(current_session_id, result_sentence)

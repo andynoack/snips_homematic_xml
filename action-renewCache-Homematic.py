@@ -42,7 +42,7 @@ def action_wrapper(hermes, intentMessage, conf):
     pl = common.retrieveProgramList(url)
     common.writecache(dl, pl)
     
-    result_sentence = "Die Geräte-Informationen wurden aktualisiert."
+    result_sentence = "Die Informationen wurden aktualisiert."
     current_session_id = intentMessage.session_id
     hermes.publish_end_session(current_session_id, result_sentence)
 

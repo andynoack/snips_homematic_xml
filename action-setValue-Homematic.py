@@ -44,12 +44,15 @@ def action_wrapper(hermes, intentMessage, conf):
         pl = common.retrieveProgramList(url)
         common.writecache(dl, pl)
     
-    spoken_name = str(intentMessage.slots.Device.first().value).lower()
-    spoken_percent = intentMessage.slots.Prozentwert.first().value/100
-    if common.changeDeviceState(url, common.getID(dl, spoken_name), spoken_percent):
-        result_sentence = "OK"
-    else:
-        result_sentence = "Ich konnte den Namen des Geräts nicht finden!"
+    try:
+        spoken_name = str(intentMessage.slots.Device.first().value).lower()
+        spoken_percent = intentMessage.slots.Prozentwert.first().value/100
+        if common.changeDeviceState(url, common.getID(dl, spoken_name), spoken_percent):
+            result_sentence = "OK"
+        else:
+            result_sentence = "Ich konnte den Namen des Geräts nicht finden!"
+    except:
+        result_sentence = "Ich habe es nicht verstanden!"
     
     current_session_id = intentMessage.session_id
     hermes.publish_end_session(current_session_id, result_sentence)
