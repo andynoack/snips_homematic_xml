@@ -55,9 +55,11 @@ def retrieveDeviceList(url):
         # Parse channels
         for channel in device:
             for pair in channel.items():
+                thischannel = False
                 if pair[0] == 'name' and not pair[1].startswith('HM-'):
                     save_name = simplify(pair[1])
-                if pair[0] == 'ise_id':
+                    thischannel = True
+                if pair[0] == 'ise_id' and thischannel:
                     save_ise_id = pair[1]
         if save_name != "":
             devicelist.append([save_name, save_ise_id])
