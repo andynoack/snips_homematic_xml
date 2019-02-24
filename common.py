@@ -47,6 +47,7 @@ def retrieveDeviceList(url):
     xml_devicelist = getXML(url + "devicelist.cgi")
     for device in xml_devicelist:
         save_name = ""
+        usethis = True
         save_ise_id = 0
         # Info in parent
         for pair in device.items():
@@ -55,12 +56,13 @@ def retrieveDeviceList(url):
         # Parse channels
         for channel in device:
             for pair in channel.items():
-                thischannel = False
                 if pair[0] == 'name' and not pair[1].startswith('HM-'):
                     save_name = simplify(pair[1])
-                    thischannel = True
-                if pair[0] == 'ise_id' and thischannel:
+                    usethis = True
+                if pair[0] == 'ise_id' and usethis:
                     save_ise_id = pair[1]
+            usethis = False
+                    
         if save_name != "":
             devicelist.append([save_name, save_ise_id])
     return devicelist
