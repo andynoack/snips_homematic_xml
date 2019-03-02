@@ -1,23 +1,32 @@
-#/usr/bin/env bash -e
+#!/usr/bin/env bash -e
 
+PYTHON=`which python3`
 VENV=venv
 
-if [ ! -d "$VENV" ]
+if [ -f "$PYTHON" ]
 then
 
-    PYTHON=`which python3`
-
-    if [ ! -f $PYTHON ]
+    if [ ! -d $VENV ]
     then
-        echo "could not find python"
+        # Create a virtual environment if it doesn't exist.
+        $PYTHON -m venv $VENV
+    else
+        if [ -e $VENV/bin/python2 ]
+        then
+            # If a Python2 environment exists, delete it first
+            # before creating a new Python 3 virtual environment.
+            rm -r $VENV
+            $PYTHON -m venv $VENV
+        fi
     fi
-    virtualenv -p $PYTHON $VENV
 
+    # Activate the virtual environment and install requirements.
+    . $VENV/bin/activate
+    pip3 install -q -r requirements.txt
+
+else
+    >&2 echo "Cannot find Python 3. Please install it."
 fi
-
-. $VENV/bin/activate
-
-pip install -r requirements.txt
 
 if [ -f config.ini ]
 then
