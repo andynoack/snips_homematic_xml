@@ -20,6 +20,8 @@ then
         fi
     fi
 
+    echo "Installing (maybe compiling) necessary libraries in background, this can last a while! Drink a coffee, read a book, become a mighty pirate in the meantime or just let it run..."
+    
     # Activate the virtual environment and install requirements.
     . $VENV/bin/activate
     pip3 install -q -r requirements.txt
