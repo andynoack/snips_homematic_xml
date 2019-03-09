@@ -14,6 +14,7 @@ def simplify(text):
     return ret
 
 def getXML(url):
+    print("Query:" + url)
     ret = urllib.request.urlopen(url).read()
     return etree.fromstring(ret)
 
@@ -85,7 +86,6 @@ def retrieveProgramList(url):
 def getState(url, name):    
     programlist = []
     action_url = url + "statelist.cgi?show_internal=0"
-    print(action_url)
     xml_statelist = getXML(action_url)
     simplename = simplify(name)
     
@@ -135,6 +135,7 @@ def getState(url, name):
 def changeDeviceState(url, ise_id, new_value):
     if not ise_id == None:
         action_url = url + "statechange.cgi?ise_id=" + str(ise_id) + "&new_value=" + str(new_value)
+        print("Query:" + action_url)
         urllib.request.urlopen(action_url)
         return True
     return False
@@ -142,6 +143,7 @@ def changeDeviceState(url, ise_id, new_value):
 def runProgram(url, program_id):
     if not program_id == None:
         action_url = url + "runprogram.cgi?program_id=" + str(program_id)
+        print("Query:" + action_url)
         urllib.request.urlopen(action_url)
         return True
     return False
