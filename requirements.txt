@@ -3,3 +3,5 @@ hermes-python>=0.1
 lxml
 six
 unidecode
+libxml2-python3
+libxml2-python

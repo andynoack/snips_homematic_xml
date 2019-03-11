@@ -22,6 +22,9 @@ then
 
     echo "Installing (maybe compiling) necessary libraries in background, this can last a while! Drink a coffee, read a book, become a mighty pirate in the meantime or just let it run..."
     
+    # Install some libs (tip from Juergen)
+    #sudo apt-get install libxml2-dev libxslt-dev python-dev
+    
     # Activate the virtual environment and install requirements.
     . $VENV/bin/activate
     pip3 install -q -r requirements.txt
