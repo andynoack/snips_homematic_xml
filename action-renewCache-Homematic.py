@@ -38,6 +38,7 @@ def action_wrapper(hermes, intentMessage, conf):
     Refer to the documentation for further details. 
     """ 
 
+    url = conf['global']['url']
     dl = common.retrieveDeviceList(url)
     pl = common.retrieveProgramList(url)
     common.writecache(dl, pl)
