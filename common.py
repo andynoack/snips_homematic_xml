@@ -113,6 +113,8 @@ def getState(url, name):
                                     devicetype = 'level'
                                 if pair[0] == 'name' and 'STATE' in pair[1]:
                                     devicetype = 'state'
+                                if pair[0] == 'name' and 'SET_TEMPERATURE' in pair[1]:
+                                    devicetype = 'degree'
                                 if pair[0] == 'value' and devicetype:
                                     value = pair[1]
                                     found = 2
@@ -130,6 +132,8 @@ def getState(url, name):
                 return 'aus'
         if devicetype == 'level':
             return str(int(float(value)*100))+'%'
+        if devicetype == 'degree':
+            return str(int(float(value)))+'°C'
     return False  
 
 def changeDeviceState(url, ise_id, new_value):
