@@ -37,7 +37,11 @@ def action_wrapper(hermes, intentMessage, conf):
     Refer to the documentation for further details. 
     """ 
     url = conf['global']['url']
-    verbose = conf['global']['verbose']
+    try:
+        verbose = conf['global']['verbose']
+    except:
+        verbose = 'False'
+        
     dl, pl = common.readcache()
     if dl == [] or pl == []:
         dl = common.retrieveDeviceList(url)
