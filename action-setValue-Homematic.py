@@ -38,6 +38,7 @@ def action_wrapper(hermes, intentMessage, conf):
     Refer to the documentation for further details. 
     """     
     url = conf['global']['url']
+    verbose = conf['global']['verbose']
     dl, pl = common.readcache()
     if dl == [] or pl == []:
         dl = common.retrieveDeviceList(url)
@@ -48,7 +49,10 @@ def action_wrapper(hermes, intentMessage, conf):
         spoken_name = str(intentMessage.slots.Device.first().value).lower()
         spoken_percent = intentMessage.slots.Prozentwert.first().value/100
         if common.changeDeviceState(url, common.getID(dl, spoken_name), spoken_percent):
-            result_sentence = "OK"
+            if verbose == 'True' or verbose == 'true':
+                result_sentence = "Setze " + spoken_name + " auf " + str(spoken_percent) + " Prozent." 
+            else:
+                result_sentence = "OK"
         else:
             result_sentence = "Ich konnte den Namen des Geräts nicht finden!"
     except:

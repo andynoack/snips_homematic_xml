@@ -37,6 +37,7 @@ def action_wrapper(hermes, intentMessage, conf):
     Refer to the documentation for further details. 
     """ 
     url = conf['global']['url']
+    verbose = conf['global']['verbose']
     dl, pl = common.readcache()
     if dl == [] or pl == []:
         dl = common.retrieveDeviceList(url)
@@ -47,7 +48,10 @@ def action_wrapper(hermes, intentMessage, conf):
         spoken_name = intentMessage.slots.Name.first().value
         
         if common.runProgram(url, common.getID(pl, spoken_name)):
-            result_sentence = "OK"
+            if verbose == 'True' or verbose == 'true':
+                result_sentence = "Führe das Programm " + spoken_name + " aus."
+            else:
+                result_sentence = "OK"
         else:
             result_sentence = "Ich konnte den Programmnamen nicht finden!"
     except:

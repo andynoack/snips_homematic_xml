@@ -38,6 +38,7 @@ def action_wrapper(hermes, intentMessage, conf):
     Refer to the documentation for further details. 
     """     
     url = conf['global']['url']
+    verbose = conf['global']['verbose']
     dl, pl = common.readcache()
     if dl == [] or pl == []:
         dl = common.retrieveDeviceList(url)
@@ -56,7 +57,13 @@ def action_wrapper(hermes, intentMessage, conf):
 
         if number > -1:
             if common.changeDeviceState(url, common.getID(dl, spoken_name), number):
-                result_sentence = "OK"
+                if verbose == 'True' or verbose == 'true':
+                    if number == 1:
+                        result_sentence = "Schalte " + spoken_name + " ein."
+                    else:
+                        result_sentence = "Schalte " + spoken_name + " aus."
+                else:                
+                    result_sentence = "OK"
             else:
                 result_sentence = "Ich konnte den Namen des Geräts nicht finden!"
     except:
