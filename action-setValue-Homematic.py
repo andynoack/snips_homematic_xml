@@ -54,7 +54,7 @@ def action_wrapper(hermes, intentMessage, conf):
         spoken_percent = intentMessage.slots.Prozentwert.first().value/100
         if common.changeDeviceState(url, common.getID(dl, spoken_name), spoken_percent):
             if verbose == 'True' or verbose == 'true':
-                result_sentence = "Setze " + spoken_name + " auf " + str(spoken_percent) + " Prozent." 
+                result_sentence = "Setze " + spoken_name + " auf " + str(spoken_percent*100) + " Prozent." 
             else:
                 result_sentence = "OK"
         else:
