@@ -113,7 +113,7 @@ def getState(url, name):
                                     devicetype = 'level'
                                 if pair[0] == 'name' and 'STATE' in pair[1]:
                                     devicetype = 'state'
-                                if pair[0] == 'name' and 'SET_TEMPERATURE' in pair[1]:
+                                if pair[0] == 'name' and 'TEMPERATURE' in pair[1]:
                                     devicetype = 'degree'
                                 if pair[0] == 'value' and devicetype:
                                     value = pair[1]
