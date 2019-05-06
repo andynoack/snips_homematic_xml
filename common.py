@@ -11,6 +11,7 @@ def simplify(text):
     ret = ret.replace('ae', 'a')
     ret = ret.replace('oe', 'o')
     ret = ret.replace('ue', 'u')
+    ret = ret.partition(':')[0]
     return ret
 
 def getXML(url):
@@ -45,7 +46,7 @@ def readcache():
     
 def retrieveDeviceList(url):    
     devicelist = []
-    xml_devicelist = getXML(url + "devicelist.cgi")
+    xml_devicelist = getXML(url + "statelist.cgi?show_internal=0") #"devicelist.cgi")
     
     for device in xml_devicelist:
         save_name = ""
@@ -63,12 +64,12 @@ def retrieveDeviceList(url):
                     save_name = simplify(pair[1])
                     usethis = True
                 if pair[0] == 'ise_id' and usethis:
-                    save_ise_id = pair[1]
-            if usethis:
+                    save_ise_id = pair[1]            
+            if usethis:                
                 usethisdatapoint = False
-                for datapoint in channel:
+                for datapoint in channel:                    
                     for pair in datapoint.items():
-                        if pair[0] == 'type' and (pair[1] == 'STATE' or pair[1] == 'SET_TEMPERATURE'):
+                        if pair[0] == 'type' and (pair[1] == 'STATE' or pair[1] == 'SET_TEMPERATURE'):                            
                             usethisdatapoint = True
                         if pair[0] == 'ise_id' and usethisdatapoint:
                             save_ise_id = pair[1]
