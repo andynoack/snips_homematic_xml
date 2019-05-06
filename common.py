@@ -46,6 +46,7 @@ def readcache():
 def retrieveDeviceList(url):    
     devicelist = []
     xml_devicelist = getXML(url + "devicelist.cgi")
+    
     for device in xml_devicelist:
         save_name = ""
         usethis = True
@@ -56,13 +57,22 @@ def retrieveDeviceList(url):
                 save_name = simplify(pair[1])
         # Parse channels
         for channel in device:
+            usethis = False
             for pair in channel.items():
                 if pair[0] == 'name' and not pair[1].startswith('HM-') and not pair[1].startswith('HmIP-'):
                     save_name = simplify(pair[1])
                     usethis = True
                 if pair[0] == 'ise_id' and usethis:
                     save_ise_id = pair[1]
-            usethis = False
+            if usethis:
+                usethisdatapoint = False
+                for datapoint in channel:
+                    for pair in datapoint.items():
+                        if pair[0] == 'type' and (pair[1] == 'STATE' or pair[1] == 'SET_TEMPERATURE'):
+                            usethisdatapoint = True
+                        if pair[0] == 'ise_id' and usethisdatapoint:
+                            save_ise_id = pair[1]
+                            usethisdatapoint = False
                     
         if save_name != "":
             devicelist.append([save_name, save_ise_id])
