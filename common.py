@@ -63,13 +63,13 @@ def retrieveDeviceList(url):
                 if pair[0] == 'name' and not pair[1].startswith('HM-') and not pair[1].startswith('HmIP-'):
                     save_name = simplify(pair[1])
                     usethis = True
-                if pair[0] == 'ise_id' and usethis:
+                if pair[0] == 'ise_id' and usethis and save_ise_id == 0:
                     save_ise_id = pair[1]            
             if usethis:                
                 usethisdatapoint = False
                 for datapoint in channel:                    
                     for pair in datapoint.items():
-                        if pair[0] == 'type' and (pair[1] == 'STATE' or pair[1] == 'SET_TEMPERATURE'):                            
+                        if pair[0] == 'type' and (pair[1] == 'STATE' or pair[1] == 'SET_TEMPERATURE' or pair[1] == 'LEVEL'):                            
                             usethisdatapoint = True
                         if pair[0] == 'ise_id' and usethisdatapoint:
                             save_ise_id = pair[1]
