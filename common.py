@@ -47,9 +47,9 @@ def readcache():
 def retrieveDeviceList(url):    
     devicelist = []
     xml_devicelist = getXML(url + "statelist.cgi?show_internal=0") #"devicelist.cgi")
-    
     for device in xml_devicelist:
         save_name = ""
+        name_pending = True
         usethis = True
         save_ise_id = 0
         # Info in parent
@@ -60,11 +60,12 @@ def retrieveDeviceList(url):
         for channel in device:
             usethis = False
             for pair in channel.items():
-                if pair[0] == 'name' and not pair[1].startswith('HM-') and not pair[1].startswith('HmIP-'):
+                if pair[0] == 'name' and not pair[1].startswith('HM-') and not pair[1].startswith('HmIP-') and name_pending:
                     save_name = simplify(pair[1])
+                    print("Add", save_name)
                     usethis = True
                 if pair[0] == 'ise_id' and usethis and save_ise_id == 0:
-                    save_ise_id = pair[1]            
+                    save_ise_id = pair[1]
             if usethis:                
                 usethisdatapoint = False
                 for datapoint in channel:                    
@@ -74,6 +75,7 @@ def retrieveDeviceList(url):
                         if pair[0] == 'ise_id' and usethisdatapoint:
                             save_ise_id = pair[1]
                             usethisdatapoint = False
+                            name_pending = False
                     
         if save_name != "":
             devicelist.append([save_name, save_ise_id])
@@ -99,11 +101,10 @@ def getState(url, name):
     action_url = url + "statelist.cgi?show_internal=0"
     xml_statelist = getXML(action_url)
     simplename = simplify(name)
-    
+
     found = 0
     devicetype = False
     value = None
-    
     for device in xml_statelist:
         for pair in device.items():
             if pair[0] == 'name' and not pair[1].startswith('HM-') and not pair[1].startswith('HmIP-'):
@@ -112,19 +113,19 @@ def getState(url, name):
         for channel in device:
             for pair in channel.items():
                 if pair[0] == 'name' and not pair[1].startswith('HM-') and not pair[1].startswith('HmIP-'):
-                    if simplify(pair[1]) == simplename:
+                    if simplify(pair[1]) == simplename and found == 0:
                         found = 1
                 if found == 1:
                     for datapoint in channel:
                         if found == 1:
                             for pair in datapoint.items():
-                                if pair[0] == 'name' and 'MOTION' in pair[1]:
+                                if pair[0] == 'type' and 'MOTION' == pair[1]:
                                     devicetype = 'motion'
-                                if pair[0] == 'name' and 'LEVEL' in pair[1]:
+                                if pair[0] == 'type' and 'LEVEL' == pair[1]:
                                     devicetype = 'level'
-                                if pair[0] == 'name' and 'STATE' in pair[1]:
+                                if pair[0] == 'type' and 'STATE' == pair[1]:
                                     devicetype = 'state'
-                                if pair[0] == 'name' and 'TEMPERATURE' in pair[1]:
+                                if pair[0] == 'type' and 'TEMPERATURE' in pair[1]:
                                     devicetype = 'degree'
                                 if pair[0] == 'value' and devicetype:
                                     value = pair[1]
